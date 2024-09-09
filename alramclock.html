@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            flex-direction: column;
+            color: white;
+        }
+        .container{
+            width: 700px;
+            height: 400px;
+            /* background-color: aqua; */
+            color: aqua;
+
+        }
+        .top{
+            height: 300px;
+            width: 100%;
+            /* background-color: wheat; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 70px;
+        }
+        .bottom{
+            width: 100%;
+            height: 100px;
+            /* background-color: yellow; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            flex-direction: column;
+        
+            
+        }
+        button{
+            width: 150px;
+            height: 50px;
+            cursor: pointer;
+            border: none
+           
+        }
+        .btnBox{
+            display: flex;
+            gap: 50px;
+        }
+        input{
+            padding: 15px;
+        }
+        #startBtn:hover{
+            box-shadow: 0 0 10px 10px thistle;
+        }
+        #stopBtn:hover{
+            box-shadow: 0 0 10px 10px yellow
+                       
+        }
+    </style>
+</head>
+<body>
+
+        <h1>Alarm clock Application</h1>
+    <div class="container">
+        <div class="top">
+            <h1 id="time"></h1>
+        </div>
+        <div class="bottom">
+            <input type="datetime-local" onchange="changevalue(this.value)">
+            <div class="btnBox">
+            <button id="startBtn" onclick="setAlarm()" style="background-color: red;">Start</button>
+            <button id="stopBtn" onclick="stopAlarm()" style="background-color: yellow;">Stop</button>
+        </div>
+        </div>
+    </div>
+    <script>
+
+        let startBtn = document.getElementById('startBtn')
+        let timebox=document.querySelector('#time')
+        console.log(timebox)
+
+        setInterval(()=>{
+            let date=new Date()
+            // console.log(date)
+            let minutes = date.getMinutes()
+            let seconds = date.getSeconds()
+            let hours = date.getHours()
+
+            // console.log(`${hours}:${minutes}:${seconds}`)
+
+            timebox.innerHTML=`${hours}:${minutes}:${seconds}`
+        },1000)
+
+        let audio=new Audio()
+        audio.src="Pita Se Hai Naam Tera ! Hindi Song.mp3"
+
+        let alarmTime;
+        let currentTime;
+
+        let changevalue=(ans)=>{
+            console.log(ans)
+
+             alarmTime=new Date(ans)
+            console.log(alarmTime)
+        
+        }
+
+        let timer;
+
+        const setAlarm = ()=>{
+
+alert("alarm is set")
+// startBtn.style.backgroundColor = "grey"
+
+currentTime = new Date()
+console.log(currentTime)
+
+let timeGap = alarmTime - currentTime ;
+console.log(timeGap)
+
+
+timer=   setTimeout(()=>{
+console.log("alarm is ringing")
+audio.play()
+},timeGap)
+}
+
+
+function stopAlarm(){
+alert("alarm is stopped")
+audio.pause()
+clearInterval(timer)
+} 
+    </script>
+</body>
+</html>
